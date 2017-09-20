@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AutoTest</string>
+    <string name="Question">Please choose the Functions to run test !</string>
+    <string name="AudioItem">Audio</string>
+    <string name="VideoItem">Video</string>
+    <string name="CameraItem">Camera</string>
+    <string name="DisplayItem">Display</string>
+    <string name="FingerprintItem">Fingerprint</string>
+    <string name="SensorItem">Sensor</string>
+    <string name="UsbItem">USB</string>
+    <string name="go">Go</string>
+</resources>

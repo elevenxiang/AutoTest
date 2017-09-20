@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Category>
+    <Case id="1" class="playback_speaker">
+        <Condition id="1">
+            <mixer_path>QUAT_MI2S_RX Audio Mixer MultiMedia4</mixer_path>
+        </Condition>
+        <Condition id="2">
+            <pcm_id>8</pcm_id>
+        </Condition>
+    </Case>
+    <Case id="2" class="playback_headset">
+        <Condition id="1">
+            <mixer_path>SLIMBUS_6_RX Audio Mixer MultiMedia4</mixer_path>
+        </Condition>
+        <Condition id="2">
+            <pcm_id>8</pcm_id>
+        </Condition>
+    </Case>
+    <Case id="3" class="playback_a2dp">
+        <Condition id="1">
+            <mixer_path>SLIMBUS_7_RX Audio Mixer MultiMedia4</mixer_path>
+        </Condition>
+        <Condition id="2">
+            <pcm_id>8</pcm_id>
+        </Condition>
+    </Case>
+</Category>
