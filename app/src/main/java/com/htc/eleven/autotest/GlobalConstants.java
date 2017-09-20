@@ -32,7 +32,7 @@ public class GlobalConstants {
     public static String app_folder = "AutoTest";
     public static String xml_folder = "xmls";
 
-    public static String path = Environment.getExternalStorageDirectory() + File.separator + app_folder + xml_folder;
+    public static String path = Environment.getExternalStorageDirectory() + File.separator + app_folder + File.separator + xml_folder;
 
     public static String AUDIO_TEST_XML = "Audio_Test.xml";
     public static String VIDEO_TEST_XML = "Video_Test.xml";

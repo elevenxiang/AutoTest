@@ -21,17 +21,19 @@ public class TestResultActivity extends AppCompatActivity {
 
         for (String func: data) {
 
-            if(DEBUG) {
-                Log.i(TAG, func);
-            }
+            if(func != null) {
+                if (DEBUG) {
+                    Log.i(TAG, func);
+                }
 
-            switch (func) {
-                case GlobalConstants.AUDIO:
-                    new AudioCategory(GlobalConstants.AUDIO,GlobalConstants.AUDIO_TEST_XML).Load();
-                    break;
-                case GlobalConstants.VIDEO:
-                    new VideoCategory(GlobalConstants.VIDEO,GlobalConstants.VIDEO_TEST_XML).Load();
-                    break;
+                switch (func) {
+                    case GlobalConstants.AUDIO:
+                        new AudioCategory(GlobalConstants.AUDIO, GlobalConstants.AUDIO_TEST_XML).Load();
+                        break;
+                    case GlobalConstants.VIDEO:
+                        new VideoCategory(GlobalConstants.VIDEO, GlobalConstants.VIDEO_TEST_XML).Load();
+                        break;
+                }
             }
         }
 

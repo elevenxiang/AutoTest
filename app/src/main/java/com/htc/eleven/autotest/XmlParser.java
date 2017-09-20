@@ -3,6 +3,8 @@ package com.htc.eleven.autotest;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,20 +21,42 @@ public class XmlParser {
     public static final String TAG = "XmlParser";
 
     /**
+     * get system line break;
+     * */
+    public static final String lineBreak = System.getProperty("line.separator");
+
+    /**
      * copy assert file into external storage when Application was launched first time.
      * */
-    private static void copyResultFileToExternalStorage(InputStream assertFile, FileOutputStream outputStream) {
+    private static void copyFileToExternalStorage(String sourceFile, File destFile) {
 
         try {
-            InputStreamReader inputStreamReader = new InputStreamReader(assertFile);
-            char[] data = new char[assertFile.available()];
-            inputStreamReader.read(data);
-            inputStreamReader.close();
 
+            InputStream assertFile = App.getApp().getAssets().open(sourceFile);
+            InputStreamReader inputStreamReader = new InputStreamReader(assertFile);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            FileOutputStream outputStream = new FileOutputStream(destFile);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-            outputStreamWriter.write(data);
+            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+
+            String line;
+            while ((line=bufferedReader.readLine()) != null) {
+                bufferedWriter.append(line+lineBreak);
+            }
+
+            outputStream.flush();
             outputStreamWriter.flush();
+            bufferedWriter.flush();
+
+            bufferedWriter.close();
             outputStreamWriter.close();
+            outputStream.close();
+
+            bufferedReader.close();
+            inputStreamReader.close();
+            assertFile.close();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,14 +89,7 @@ public class XmlParser {
                     return false;
                 } else {
                     Log.i(TAG, "Create file: "+sdcard_file.getAbsolutePath()+" Successfully !");
-                    InputStream assertFile = App.getApp().getAssets().open(file);
-                    FileOutputStream outputStream = new FileOutputStream(file);
-
-                    copyResultFileToExternalStorage(assertFile,outputStream);
-
-                    outputStream.flush();
-                    assertFile.close();
-                    outputStream.close();
+                    copyFileToExternalStorage(file,sdcard_file);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
