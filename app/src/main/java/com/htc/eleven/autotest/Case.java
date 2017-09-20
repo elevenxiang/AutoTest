@@ -11,6 +11,12 @@ public abstract class Case {
     private Vector<Condition> mConditions;
     private Condition err = null;
 
+    private int CategoryId;
+
+    public int getCategoryId() {
+        return CategoryId;
+    }
+
     /**
      * result = Passed or Failed.
      * */

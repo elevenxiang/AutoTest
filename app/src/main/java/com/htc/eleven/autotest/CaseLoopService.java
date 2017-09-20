@@ -98,6 +98,7 @@ public class CaseLoopService extends Service {
                 msg.what = id;
 
                 Bundle bundle = new Bundle();
+                bundle.putInt("id", categoryId.getId());
                 bundle.putString("category", categoryId.getCategoryName());
                 msg.setData(bundle);
                 notifier.sendMessage(msg);
@@ -128,6 +129,7 @@ public class CaseLoopService extends Service {
                             e.printStackTrace();
                         }
                     }
+                    Notify(MessageID.MESSAGE_CATEGORY_DONE,c);
                 }
 
                 /**

@@ -10,7 +10,8 @@ public class AudioCategory extends Category {
 
     private String file;
 
-    public AudioCategory(String name, String file) {
+    public AudioCategory(int id, String name, String file) {
+        this.id = id;
         this.mCategoryName = name;
         this.file = file;
         mCases = new Vector<>();

@@ -3,6 +3,11 @@ package com.htc.eleven.autotest;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,6 +17,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 /**
  * Created by eleven on 17-9-20.
  */
@@ -20,6 +29,7 @@ public class XmlParser {
 
     public static final String TAG = "XmlParser";
 
+    private static boolean DEBUG = true;
     /**
      * get system line break;
      * */
@@ -111,7 +121,43 @@ public class XmlParser {
             return ret;
         }
 
+
+
         //TODO, here we need parser xml and save database into category.
+        if(DEBUG) {
+
+        }
+
+        String sdcard_file = GlobalConstants.path + File.separator + file;
+        if(sdcard_file != null) {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder;
+            try {
+                builder = factory.newDocumentBuilder();
+                Document document = builder.parse(file);
+                Element element = document.getDocumentElement();
+
+                NodeList case_list = element.getElementsByTagName("Case");
+                for (int i = 0; i < case_list.getLength(); i++) {
+                    Element e1 = (Element) case_list.item(i);
+                    if(DEBUG)
+                        Log.i(TAG, e1.getAttribute("id") + ":" + e1.getAttribute("class"));
+
+                    NodeList curCase = (NodeList) case_list.item(i);
+                    for ( int j=0; j<curCase.getLength(); j++) {
+                        Element e2 = (Element) curCase.item(i);
+                        if(DEBUG)
+                            Log.i(TAG, e2.getAttribute("id"));
+                    }
+                }
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return true;
     }

@@ -9,4 +9,5 @@
     <string name="SensorItem">Sensor</string>
     <string name="UsbItem">USB</string>
     <string name="go">Go</string>
+    <string name="stopTest">Stop</string>
 </resources>

@@ -9,6 +9,7 @@ import java.util.Vector;
 public abstract class Category {
 
     public String mCategoryName = null;
+    public int id = 0;
     public Vector<Case> mCases = null;
 
     /**
@@ -25,5 +26,9 @@ public abstract class Category {
 
     public Vector<Case> getCases() {
         return mCases;
+    }
+
+    public int getId() {
+        return id;
     }
 }

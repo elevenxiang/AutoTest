@@ -10,7 +10,8 @@ public class VideoCategory extends Category {
 
     private String file;
 
-    public VideoCategory(String name, String file) {
+    public VideoCategory(int videoId, String name, String file) {
+        this.id = videoId;
         this.mCategoryName = name;
         this.file = file;
         mCases = new Vector<>();
