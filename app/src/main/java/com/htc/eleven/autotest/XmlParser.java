@@ -134,20 +134,28 @@ public class XmlParser {
             DocumentBuilder builder;
             try {
                 builder = factory.newDocumentBuilder();
-                Document document = builder.parse(file);
+                Document document = builder.parse(new File(sdcard_file));
                 Element element = document.getDocumentElement();
 
                 NodeList case_list = element.getElementsByTagName("Case");
                 for (int i = 0; i < case_list.getLength(); i++) {
                     Element e1 = (Element) case_list.item(i);
-                    if(DEBUG)
-                        Log.i(TAG, e1.getAttribute("id") + ":" + e1.getAttribute("class"));
+                    String caseId = e1.getAttribute("id");
+                    String caseName = e1.getAttribute("class");
+                    String caseConNums = e1.getAttribute("conNums");
 
-                    NodeList curCase = (NodeList) case_list.item(i);
-                    for ( int j=0; j<curCase.getLength(); j++) {
-                        Element e2 = (Element) curCase.item(i);
-                        if(DEBUG)
-                            Log.i(TAG, e2.getAttribute("id"));
+                    String caseResult = e1.getElementsByTagName("Result").item(0).getFirstChild().getNodeValue();
+                    if(DEBUG)
+                        Log.i(TAG, caseId + ", " + caseName + ", " + ", conditionNum: " + caseConNums +", " + caseResult);
+
+
+                    for(int j=0; j<Integer.parseInt(caseConNums); j++) {
+                        Element condition = (Element) e1.getElementsByTagName("Conditions").item(j);
+                        String condition_index = condition.getAttribute("id");
+                        String condition_value = condition.getFirstChild().getNodeValue();
+                        if(DEBUG) {
+                            Log.i(TAG, condition_index + "," + condition_value);
+                        }
                     }
                 }
             } catch (ParserConfigurationException e) {
