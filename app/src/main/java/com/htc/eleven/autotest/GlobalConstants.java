@@ -10,7 +10,7 @@ import java.io.File;
 
 public class GlobalConstants {
 
-    public static final String AUDIO = "audio";
+    public static final String AUDIO = "Audio";
     public static final String VIDEO = "video";
     public static final String CAMERA = "camera";
     public static final String DISPLAY = "display";

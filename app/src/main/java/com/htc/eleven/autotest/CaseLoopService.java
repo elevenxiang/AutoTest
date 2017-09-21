@@ -14,7 +14,7 @@ import java.util.Vector;
 public class CaseLoopService extends Service {
 
     public static final String TAG = "CaseLoopService";
-
+    private static final boolean DEBUG = true;
     private Handler mHandlers;
     private LoopTestThread workThread = null;
 
@@ -114,6 +114,9 @@ public class CaseLoopService extends Service {
         public void run() {
             while (mRunning) {
                 for (Category c : categories) {
+                    if(DEBUG) {
+                        Log.i(TAG, "category: " +c.getId() + ": ==>" + c.getCategoryName());
+                    }
                     Notify(MessageID.MESSAGE_CATEGORY,c);
                     for (Case item : c.getCases()) {
                         item.run();
@@ -136,6 +139,7 @@ public class CaseLoopService extends Service {
                  * break out after all test cases finished.
                  * */
                 mRunning = false;
+                Log.i(TAG, "All test cases finished !");
                 break;
             }
         }

@@ -22,7 +22,7 @@ public class TestResultActivity extends AppCompatActivity {
     private boolean DEBUG = true;
 
     private LinearLayout result_layout;
-    private TextView[] views = new TextView[GlobalConstants.TEST_NUM];
+    private TextView[] views;
     private int curCategoryIdUnderTest = 0;
 
     private resultHandler myHandler = new resultHandler();
@@ -43,7 +43,13 @@ public class TestResultActivity extends AppCompatActivity {
                     categoryId = bundle.getInt("id");
                     category=bundle.getString("category");
 
-                    views[categoryId].append(category+lineBreak);
+                    if(DEBUG)
+                        Log.i(TAG, "get message from category: " + categoryId + ". " +category);
+
+                    TextView curView = new TextView(TestResultActivity.this);
+                    curView.setText("");
+                    curView.append(category+lineBreak);
+                    views[categoryId] = curView;
                     curCategoryIdUnderTest = categoryId;
 
 
@@ -61,11 +67,12 @@ public class TestResultActivity extends AppCompatActivity {
                     caseDesc=bundle.getString("conn");
                     ret=bundle.getString("ret");
 
-                    views[curCategoryIdUnderTest].append("  "+ caseName);
                     if(ret.equals("Passed")) {
-                        views[curCategoryIdUnderTest].append("====="+ "[" + ret + "]" + lineBreak);
+                        views[curCategoryIdUnderTest].append("  [" + ret + "] " + "=====");
+                        views[curCategoryIdUnderTest].append("  "+ caseName + lineBreak);
                     } else {
-                        views[curCategoryIdUnderTest].append("====="+ "[" + ret + "]" + lineBreak);
+                        views[curCategoryIdUnderTest].append("  [" + ret + "] " + "=====");
+                        views[curCategoryIdUnderTest].append("  "+ caseName + lineBreak);
                         views[curCategoryIdUnderTest].append("      " + caseDesc);
                         views[curCategoryIdUnderTest].setTextColor(getResources().getColor(R.color.colorAccent,null));
                     }
@@ -89,7 +96,7 @@ public class TestResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_result_acitivy);
 
         result_layout = (LinearLayout) findViewById(R.id.show_result_layout);
-
+        views = new TextView[GlobalConstants.TEST_NUM];
         if(App.getApp().init_check()) {
             App.getApp().registerServiceNotifier(myHandler);
         } else {

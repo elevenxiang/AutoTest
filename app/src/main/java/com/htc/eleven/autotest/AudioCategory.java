@@ -44,9 +44,11 @@ public class AudioCategory extends Category {
                 ret = c.judge();
                 if(!ret) {
                     err = c;
+                    result = "Failed";
                     break;
                 }
             }
+            result = "Passed";
             return ret;
         }
     }
