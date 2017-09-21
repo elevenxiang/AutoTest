@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Category>
-    <Case id="1" class="playback_speaker" conNums="2">
+    <Case id="1" class="playback_speaker" conNum="2">
         <Conditions id="1">mixer_control=QUAT_MI2S_RX Audio Mixer MultiMedia4</Conditions>
         <Conditions id="2">pcm_id=8</Conditions>
         <Result>Failed</Result>
     </Case>
-    <Case id="2" class="playback_headset" conNums="2">
+    <Case id="2" class="playback_headset" conNum="2">
         <Conditions id="1">mixer_control=SLIMBUS_6_RX Audio Mixer MultiMedia4</Conditions>
         <Conditions id="2">pcm_id=8</Conditions>
         <Result>Failed</Result>
     </Case>
-    <Case id="3" class="playback_a2dp" conNums="2">
+    <Case id="3" class="playback_a2dp" conNum="2">
         <Conditions id="1">mixer_control=SLIMBUS_7_RX Audio Mixer MultiMedia4</Conditions>
         <Conditions id="2">pcm_id=8</Conditions>
         <Result>Failed</Result>

@@ -142,14 +142,14 @@ public class XmlParser {
                     Element e1 = (Element) case_list.item(i);
                     String caseId = e1.getAttribute("id");
                     String caseName = e1.getAttribute("class");
-                    String caseConNums = e1.getAttribute("conNums");
+                    String caseConNum = e1.getAttribute("conNum");
 
                     String caseResult = e1.getElementsByTagName("Result").item(0).getFirstChild().getNodeValue();
                     if(DEBUG)
-                        Log.i(TAG, caseId + ", " + caseName + ", " + ", conditionNum: " + caseConNums +", " + caseResult);
+                        Log.i(TAG, caseId + ", " + caseName + ", conditionNum: " + caseConNum +", " + caseResult);
 
 
-                    for(int j=0; j<Integer.parseInt(caseConNums); j++) {
+                    for(int j=0; j<Integer.parseInt(caseConNum); j++) {
                         Element condition = (Element) e1.getElementsByTagName("Conditions").item(j);
                         String condition_index = condition.getAttribute("id");
                         String condition_value = condition.getFirstChild().getNodeValue();
