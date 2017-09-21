@@ -17,7 +17,8 @@ public abstract class Category {
      *
      * argument file, for example, Audio_Test_Cases.xml.
      * */
-    public abstract boolean initCases(String file);
+    public abstract boolean initXml(String file);
+    public abstract void insertCase(int id, String name, String[] conditions);
     public abstract boolean Load();
 
     public String getCategoryName() {

@@ -7,11 +7,11 @@ import java.util.Vector;
  */
 
 public abstract class Case {
-    private String mCaseName;
-    private Vector<Condition> mConditions;
-    private Condition err = null;
+    public String mCaseName;
+    public Vector<Condition> mConditions;
+    public Condition err = null;
 
-    private int CategoryId;
+    public int CategoryId;
 
     public int getCategoryId() {
         return CategoryId;
@@ -20,7 +20,7 @@ public abstract class Case {
     /**
      * result = Passed or Failed.
      * */
-    private String result;
+    public String result;
 
     public String getResult() {
         return result;

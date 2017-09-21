@@ -121,13 +121,6 @@ public class XmlParser {
             return ret;
         }
 
-
-
-        //TODO, here we need parser xml and save database into category.
-        if(DEBUG) {
-
-        }
-
         String sdcard_file = GlobalConstants.path + File.separator + file;
         if(sdcard_file != null) {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -148,7 +141,7 @@ public class XmlParser {
                     if(DEBUG)
                         Log.i(TAG, caseId + ", " + caseName + ", conditionNum: " + caseConNum +", " + caseResult);
 
-
+                    String[]  Conditions = new String[Integer.parseInt(caseConNum)];
                     for(int j=0; j<Integer.parseInt(caseConNum); j++) {
                         Element condition = (Element) e1.getElementsByTagName("Conditions").item(j);
                         String condition_index = condition.getAttribute("id");
@@ -156,7 +149,9 @@ public class XmlParser {
                         if(DEBUG) {
                             Log.i(TAG, condition_index + "," + condition_value);
                         }
+                        Conditions[j] = condition_value;
                     }
+                    category.insertCase(category.id, caseName, Conditions);
                 }
             } catch (ParserConfigurationException e) {
                 e.printStackTrace();

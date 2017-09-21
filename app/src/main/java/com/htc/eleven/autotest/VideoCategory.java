@@ -17,14 +17,19 @@ public class VideoCategory extends Category {
         mCases = new Vector<>();
     }
 
-    public boolean Load() {
-        initCases(file);
+    @Override
+    public boolean initXml(String file) {
+        XmlParser.XmlParser(file, this);
         return true;
     }
 
     @Override
-    public boolean initCases(String file) {
-        XmlParser.XmlParser(file, this);
-        return false;
+    public void insertCase(int id, String name, String[] conditions) {
+
+    }
+
+    public boolean Load() {
+        initXml(file);
+        return true;
     }
 }

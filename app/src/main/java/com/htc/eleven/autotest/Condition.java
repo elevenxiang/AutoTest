@@ -38,4 +38,6 @@ public abstract class Condition {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public abstract boolean judge();
 }

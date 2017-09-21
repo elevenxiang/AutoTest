@@ -21,7 +21,7 @@ public class CaseLoopService extends Service {
     private Vector<Category> mCategories = null;
 
     public CaseLoopService() {
-
+        mCategories = new Vector<>();
     }
 
     public class ServiceBinder extends Binder {
@@ -83,7 +83,8 @@ public class CaseLoopService extends Service {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("case", caseId.getmCaseName());
-                bundle.putString("con", caseId.getErr().getDescription());
+                if(caseId.getErr() != null)
+                    bundle.putString("con", caseId.getErr().getDescription());
                 bundle.putString("ret", caseId.getResult());
 
                 msg.setData(bundle);
@@ -116,7 +117,6 @@ public class CaseLoopService extends Service {
                     Notify(MessageID.MESSAGE_CATEGORY,c);
                     for (Case item : c.getCases()) {
                         item.run();
-                        item.check();
                         Notify(MessageID.MESSAGE_CASE, item);
 
                         /**
