@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Category>
+    <Case id="1" class="video_playback" conNum="1">
+        <Conditions id="1">Decoder</Conditions>
+        <Result>Failed</Result>
+    </Case>
+    <Case id="2" class="video_recording" conNum="1">
+        <Conditions id="1">Encoder</Conditions>
+        <Result>Failed</Result>
+    </Case>
+</Category>
