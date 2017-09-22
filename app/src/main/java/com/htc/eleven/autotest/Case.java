@@ -26,7 +26,7 @@ public abstract class Case {
         return result;
     }
 
-    public String getmCaseName() {
+    public String getCaseName() {
         return mCaseName;
     }
 
@@ -36,5 +36,18 @@ public abstract class Case {
 
     public abstract boolean run();
 
-    public abstract boolean check();
+    public boolean check() {
+        boolean ret = true;
+        for(Condition c: mConditions) {
+            ret = c.judge();
+            if(!ret) {
+                err = c;
+                break;
+            }
+        }
+        result = ret ? "Passed" : "Failed";
+        return ret;
+    }
+
+    public abstract boolean initConditions(String[] conditions);
 }

@@ -2,6 +2,8 @@ package com.htc.eleven.autotest;
 
 import android.util.Log;
 
+import java.util.Vector;
+
 /**
  * Created by eleven on 17-9-19.
  */
@@ -9,24 +11,58 @@ import android.util.Log;
 public class PlaybackSpeakerCase extends Case {
 
     public static final String TAG = "PlaybackSpeakerCase";
+    public static final boolean DEBUG = true;
     private TestPlayer myPlayer;
+
+    public class AudioConditionMixerControl extends Condition {
+
+        public AudioConditionMixerControl(String id, int index, String description) {
+            super(id, index, description);
+        }
+
+        @Override
+        public boolean judge() {
+
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //TODO, implement the real check here.
+            return true;
+        }
+    }
+
+    public PlaybackSpeakerCase(int categoryId, String caseName){
+        this.CategoryId = categoryId;
+        this.mCaseName = caseName;
+
+        mConditions = new Vector<>();
+    }
+
     @Override
     public boolean run() {
 
-        boolean ret = false;
+        boolean ret;
 
         myPlayer = new TestPlayer();
         myPlayer.start();
 
         ret = check();
 
+        myPlayer.stop();
+
         return ret;
     }
 
     @Override
-    public boolean check() {
-        Log.i(TAG, "check()");
+    public boolean initConditions(String[] conditions) {
 
+        for(int i=0; i<conditions.length; i++) {
+            mConditions.add(new AudioConditionMixerControl(null,i,conditions[i]));
+            if(DEBUG)
+                Log.i(TAG, "    " + conditions[i]);
+        }
         return true;
     }
 }

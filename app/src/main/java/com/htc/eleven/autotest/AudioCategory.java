@@ -14,47 +14,10 @@ public class AudioCategory extends Category {
     private static final boolean DEBUG = true;
     private String file;
 
-    public class AudioCondition extends Condition {
+    private static final String PLAYBACK_SPEAKER = "playback_speaker";
+    private static final String PLAYBACK_HEADSET = "playback_headset";
+    private static final String PLAYBACK_A2DP = "playback_a2dp";
 
-        public AudioCondition(String id, int index, String description) {
-            super(id, index, description);
-        }
-
-        @Override
-        public boolean judge() {
-
-            //TODO, implement the real check here.
-            return true;
-        }
-    }
-    public class AudioCase extends Case {
-
-        public AudioCase(int categoryId, String caseName){
-            this.CategoryId = categoryId;
-            this.mCaseName = caseName;
-
-            mConditions = new Vector<>();
-        }
-
-        @Override
-        public boolean run() {
-            return check();
-        }
-
-        @Override
-        public boolean check() {
-            boolean ret = true;
-            for(Condition c: mConditions) {
-                ret = c.judge();
-                if(!ret) {
-                    err = c;
-                    break;
-                }
-            }
-            result = ret ? "Passed" : "Failed";
-            return ret;
-        }
-    }
     public AudioCategory(int id, String name, String file) {
         this.id = id;
         this.mCategoryName = name;
@@ -68,20 +31,32 @@ public class AudioCategory extends Category {
         return true;
     }
 
-    public void insertCase(int categoryID, String name, String[] conditions) {
-        AudioCase audioCase = new AudioCase(categoryID, name);
-        if(DEBUG)
-            Log.i(TAG, audioCase.mCaseName + ":");
-        for(int i=0; i<conditions.length; i++) {
-            audioCase.mConditions.add(new AudioCondition(null, i, conditions[i]));
-            if(DEBUG)
-                Log.i(TAG, "    " + conditions[i]);
-        }
-        mCases.add(audioCase);
-    }
-    @Override
     public boolean initXml(String file) {
-        XmlParser.XmlParser(file, this);
-        return false;
+        return XmlParser.XmlParser(file, this);
     }
+
+    public void insertCase(int categoryID, String name, String[] conditions) {
+
+        Case audioCase = null;
+
+        switch (name) {
+            case PLAYBACK_SPEAKER:
+                audioCase = new PlaybackSpeakerCase(categoryID, name);
+                break;
+            case PLAYBACK_HEADSET:
+                audioCase = new PlaybackSpeakerCase(categoryID, name);
+                break;
+            case PLAYBACK_A2DP:
+                audioCase = new PlaybackSpeakerCase(categoryID, name);
+                break;
+        }
+
+        if(audioCase != null) {
+            if(DEBUG)
+                Log.i(TAG, audioCase.mCaseName + ":");
+            audioCase.initConditions(conditions);
+            mCases.add(audioCase);
+        }
+    }
+
 }
