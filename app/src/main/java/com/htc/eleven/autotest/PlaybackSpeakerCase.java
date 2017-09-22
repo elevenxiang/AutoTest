@@ -8,11 +8,10 @@ import java.util.Vector;
  * Created by eleven on 17-9-19.
  */
 
-public class PlaybackSpeakerCase extends Case {
+public class PlaybackSpeakerCase extends PlaybackCase {
 
     public static final String TAG = "PlaybackSpeakerCase";
     public static final boolean DEBUG = true;
-    private TestPlayer myPlayer;
 
     public class AudioConditionMixerControl extends Condition {
 
@@ -34,25 +33,11 @@ public class PlaybackSpeakerCase extends Case {
     }
 
     public PlaybackSpeakerCase(int categoryId, String caseName){
+
         this.CategoryId = categoryId;
         this.mCaseName = caseName;
 
         mConditions = new Vector<>();
-    }
-
-    @Override
-    public boolean run() {
-
-        boolean ret;
-
-        myPlayer = new TestPlayer();
-        myPlayer.start();
-
-        ret = check();
-
-        myPlayer.stop();
-
-        return ret;
     }
 
     @Override
