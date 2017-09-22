@@ -120,7 +120,7 @@ public class CaseLoopService extends Service {
         }
         @Override
         public void run() {
-            while (mRunning) {
+            while (true) {
                 for (Category c : categories) {
                     if(DEBUG) {
                         Log.i(TAG, "category: " +c.getId() + ": ==>" + c.getCategoryName());
@@ -139,6 +139,8 @@ public class CaseLoopService extends Service {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+                        if(!mRunning) break;
                     }
                     Notify(MessageID.MESSAGE_CATEGORY_DONE,c);
                 }

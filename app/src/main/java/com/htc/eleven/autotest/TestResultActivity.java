@@ -10,6 +10,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,6 +110,13 @@ public class TestResultActivity extends AppCompatActivity {
             Toast.makeText(TestResultActivity.this, "目前发现绑定服务还没有成功!", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        findViewById(R.id.stopTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                App.getApp().stop();
+            }
+        });
 
     }
 
