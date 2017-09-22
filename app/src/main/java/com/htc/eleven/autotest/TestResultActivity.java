@@ -64,7 +64,7 @@ public class TestResultActivity extends AppCompatActivity {
                     Bundle bundle = msg.getData();
 
                     caseName=bundle.getString("case");
-                    caseDesc=bundle.getString("conn");
+                    caseDesc=bundle.getString("con");
                     ret=bundle.getString("ret");
 
                     if(ret.equals("Passed")) {
@@ -72,8 +72,7 @@ public class TestResultActivity extends AppCompatActivity {
                         view_output.append("  "+ caseName + lineBreak);
                     } else {
                         view_output.append("      [" + ret + "] " + "=====");
-                        view_output.append("  "+ caseName + lineBreak);
-                        view_output.append("          " + caseDesc);
+                        view_output.append("  "+ caseName + ", Err =" + caseDesc + lineBreak);
                         view_output.setTextColor(getResources().getColor(R.color.colorAccent,null));
                     }
                 }
@@ -110,10 +109,14 @@ public class TestResultActivity extends AppCompatActivity {
             Toast.makeText(TestResultActivity.this, "目前发现绑定服务还没有成功!", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         Intent intent = getIntent();
-
         String [] data = intent.getStringArrayExtra(MessageID.FUNCTION_ID_DATA);
-
         new xmlThread(myHandler, data).start();
     }
 

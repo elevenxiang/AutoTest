@@ -1,5 +1,7 @@
 package com.htc.eleven.autotest;
 
+import android.util.Log;
+
 import java.util.Vector;
 
 /**
@@ -8,6 +10,8 @@ import java.util.Vector;
 
 public class AudioCategory extends Category {
 
+    private static final String TAG = "AudioCategory";
+    private static final boolean DEBUG = true;
     private String file;
 
     public class AudioCondition extends Condition {
@@ -44,11 +48,10 @@ public class AudioCategory extends Category {
                 ret = c.judge();
                 if(!ret) {
                     err = c;
-                    result = "Failed";
                     break;
                 }
             }
-            result = "Passed";
+            result = ret ? "Passed" : "Failed";
             return ret;
         }
     }
@@ -67,8 +70,12 @@ public class AudioCategory extends Category {
 
     public void insertCase(int categoryID, String name, String[] conditions) {
         AudioCase audioCase = new AudioCase(categoryID, name);
+        if(DEBUG)
+            Log.i(TAG, audioCase.mCaseName + ":");
         for(int i=0; i<conditions.length; i++) {
             audioCase.mConditions.add(new AudioCondition(null, i, conditions[i]));
+            if(DEBUG)
+                Log.i(TAG, "    " + conditions[i]);
         }
         mCases.add(audioCase);
     }

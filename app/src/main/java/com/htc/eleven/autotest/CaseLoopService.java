@@ -87,8 +87,12 @@ public class CaseLoopService extends Service {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("case", caseId.getmCaseName());
-                if(caseId.getErr() != null)
+                if(caseId.getErr() != null) {
+                    if(DEBUG){
+                        Log.i(TAG, caseId.toString() +": " + caseId.getErr().getDescription());
+                    }
                     bundle.putString("con", caseId.getErr().getDescription());
+                }
                 bundle.putString("ret", caseId.getResult());
 
                 msg.setData(bundle);
