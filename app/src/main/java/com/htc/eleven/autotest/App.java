@@ -73,6 +73,12 @@ public class App extends Application {
         }
     }
 
+    public void clear() {
+        if(mProxy != null) {
+            mProxy.getService().clear();
+        }
+    }
+
     public void start() {
         if(mProxy != null) {
             mProxy.getService().start();

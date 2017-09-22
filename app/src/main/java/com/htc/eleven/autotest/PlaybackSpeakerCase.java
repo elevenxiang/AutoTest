@@ -50,4 +50,11 @@ public class PlaybackSpeakerCase extends PlaybackCase {
         }
         return true;
     }
+
+    @Override
+    public boolean run() {
+        super.seek(1000);
+        super.run();
+        return true;
+    }
 }

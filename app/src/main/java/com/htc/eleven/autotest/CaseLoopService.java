@@ -149,10 +149,15 @@ public class CaseLoopService extends Service {
                  * break out after all test cases finished.
                  * */
                 mRunning = false;
+//                clear();
                 Log.i(TAG, "All test cases finished !");
                 break;
             }
         }
+    }
+
+    public void clear() {
+        mCategories.clear();
     }
     @Override
     public void onCreate() {

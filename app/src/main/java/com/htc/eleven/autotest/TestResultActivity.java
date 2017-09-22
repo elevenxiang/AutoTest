@@ -167,5 +167,7 @@ public class TestResultActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        App.getApp().clear();
     }
 }

@@ -50,4 +50,12 @@ public class PlaybackA2DPCase extends PlaybackCase {
         }
         return true;
     }
+
+    @Override
+    public boolean run() {
+        super.seek(80000);
+        super.run();
+        return true;
+    }
+
 }

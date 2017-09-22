@@ -13,6 +13,9 @@ import java.io.IOException;
 
 public abstract class PlaybackCase extends Case {
 
+    private final String TAG = "PlaybackCase";
+    public int seekTime = 0;
+
     public class TestPlayer {
 
         private static final String TAG = "TestPlayer";
@@ -30,6 +33,7 @@ public abstract class PlaybackCase extends Case {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            preparePlay();
         }
 
         private void preparePlay(){
@@ -85,7 +89,6 @@ public abstract class PlaybackCase extends Case {
         }
         public boolean start() {
             Log.i(TAG, "start play");
-            preparePlay();
             return startPlay();
         }
 
@@ -94,6 +97,9 @@ public abstract class PlaybackCase extends Case {
             return stopPlay();
         }
 
+        public void seek(int ms) {
+            player.seekTo(ms);
+        }
     }
 
     private TestPlayer myPlayer;
@@ -105,11 +111,17 @@ public abstract class PlaybackCase extends Case {
 
         myPlayer = new TestPlayer();
         myPlayer.start();
+        myPlayer.seek(seekTime);
 
         ret = check();
 
         myPlayer.stop();
 
         return ret;
+    }
+
+    public void seek(int ms){
+        Log.i(TAG, "Seek to " + ms + "ms");
+        seekTime = ms;
     }
 }

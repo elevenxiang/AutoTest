@@ -50,4 +50,11 @@ public class PlaybackHeadsetCase extends PlaybackCase {
         }
         return true;
     }
+
+    @Override
+    public boolean run() {
+        super.seek(30000);
+        super.run();
+        return true;
+    }
 }
