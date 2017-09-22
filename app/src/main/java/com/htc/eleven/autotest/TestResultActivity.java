@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,9 +24,8 @@ public class TestResultActivity extends AppCompatActivity {
 
     private boolean DEBUG = true;
 
-    private LinearLayout result_layout;
-    private TextView[] views;
-    private int curCategoryIdUnderTest = 0;
+    private TextView view_output;
+    public int curCategoryIdUnderTest = 0;
 
     private resultHandler myHandler = new resultHandler();
     private class resultHandler extends Handler {
@@ -46,13 +48,11 @@ public class TestResultActivity extends AppCompatActivity {
                     if(DEBUG)
                         Log.i(TAG, "get message from category: " + categoryId + ". " +category);
 
-                    TextView curView = new TextView(TestResultActivity.this);
-                    curView.setText("");
-                    curView.append(category+lineBreak);
-                    views[categoryId] = curView;
+                    view_output.setText("");
+                    SpannableStringBuilder builder = new SpannableStringBuilder(category);
+                    builder.setSpan(new ForegroundColorSpan(getColor(R.color.colorAccent)), 0, category.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    view_output.append(builder+lineBreak);
                     curCategoryIdUnderTest = categoryId;
-
-
                 }
                     break;
                 case MessageID.MESSAGE_CASE:
@@ -68,26 +68,34 @@ public class TestResultActivity extends AppCompatActivity {
                     ret=bundle.getString("ret");
 
                     if(ret.equals("Passed")) {
-                        views[curCategoryIdUnderTest].append("  [" + ret + "] " + "=====");
-                        views[curCategoryIdUnderTest].append("  "+ caseName + lineBreak);
+                        view_output.append("      [" + ret + "] " + "=====");
+                        view_output.append("  "+ caseName + lineBreak);
                     } else {
-                        views[curCategoryIdUnderTest].append("  [" + ret + "] " + "=====");
-                        views[curCategoryIdUnderTest].append("  "+ caseName + lineBreak);
-                        views[curCategoryIdUnderTest].append("      " + caseDesc);
-                        views[curCategoryIdUnderTest].setTextColor(getResources().getColor(R.color.colorAccent,null));
+                        view_output.append("      [" + ret + "] " + "=====");
+                        view_output.append("  "+ caseName + lineBreak);
+                        view_output.append("          " + caseDesc);
+                        view_output.setTextColor(getResources().getColor(R.color.colorAccent,null));
                     }
                 }
                     break;
 
                 case MessageID.MESSAGE_CATEGORY_DONE:
-                    result_layout.addView(views[curCategoryIdUnderTest]);
                     break;
             }
         }
 
         @Override
         public void handleMessage(Message msg) {
-            placeViewFromMessage(msg);
+
+            if(msg.what == MessageID.MESSAGE_XML_PARSER_DONE) {
+                /**
+                 * run test after parser xml files.
+                 * */
+                Log.i(TAG, "+++");
+                App.getApp().start();
+                Log.i(TAG, "---");
+            } else
+                placeViewFromMessage(msg);
         }
     }
     @Override
@@ -95,8 +103,7 @@ public class TestResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_result_acitivy);
 
-        result_layout = (LinearLayout) findViewById(R.id.show_result_layout);
-        views = new TextView[GlobalConstants.TEST_NUM];
+        view_output = (TextView) findViewById(R.id.text_output);
         if(App.getApp().init_check()) {
             App.getApp().registerServiceNotifier(myHandler);
         } else {
@@ -107,28 +114,24 @@ public class TestResultActivity extends AppCompatActivity {
 
         String [] data = intent.getStringArrayExtra(MessageID.FUNCTION_ID_DATA);
 
-        new AsyncTask<String[], Void, String>() {
-
-            @Override
-            protected String doInBackground(String[]... strings) {
-
-                parserXmlFiles(strings[0]);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-
-                /**
-                 * run test after parser xml files.
-                 * */
-                App.getApp().start();
-            }
-        }.execute(data);
-
+        new xmlThread(myHandler, data).start();
     }
 
+    public class xmlThread extends Thread  {
+
+        private Handler handler;
+        private String [] data;
+        public xmlThread(Handler handler, String[] data) {
+            this.handler = handler;
+            this.data = data;
+        }
+
+        @Override
+        public void run() {
+            parserXmlFiles(data);
+            handler.sendEmptyMessage(MessageID.MESSAGE_XML_PARSER_DONE);
+        }
+    }
     private void parserXmlFiles(String[] data) {
 
         for (String func: data) {

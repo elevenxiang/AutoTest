@@ -9,6 +9,7 @@ public class MessageID {
     public static final int MESSAGE_CATEGORY = 0;
     public static final int MESSAGE_CASE = 1;
     public static final int MESSAGE_CATEGORY_DONE =2;
+    public static final int MESSAGE_XML_PARSER_DONE = 3;
 
     public static final String FUNCTION_ID_DATA = "id";
 }

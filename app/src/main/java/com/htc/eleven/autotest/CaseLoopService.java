@@ -44,8 +44,12 @@ public class CaseLoopService extends Service {
     }
 
     public void start() {
+        Log.i(TAG, "+++");
+
         workThread = new LoopTestThread(mHandlers, mCategories);
-        workThread.run();
+        workThread.start();
+
+        Log.i(TAG, "---");
     }
 
     public void stop() {
@@ -65,7 +69,7 @@ public class CaseLoopService extends Service {
     }
 
 
-    public class LoopTestThread implements Runnable{
+    public class LoopTestThread extends Thread{
 
         private boolean mRunning = true;
         private Handler notifier;
