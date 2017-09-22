@@ -3,6 +3,7 @@ package com.htc.eleven.autotest;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -83,11 +84,13 @@ public abstract class PlaybackCase extends Case {
             return true;
         }
         public boolean start() {
+            Log.i(TAG, "start play");
             preparePlay();
             return startPlay();
         }
 
         public boolean stop() {
+            Log.i(TAG, "stop play");
             return stopPlay();
         }
 

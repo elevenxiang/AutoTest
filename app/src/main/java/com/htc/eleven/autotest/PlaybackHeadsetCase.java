@@ -10,7 +10,7 @@ import java.util.Vector;
 
 public class PlaybackHeadsetCase extends PlaybackCase {
 
-    public static final String TAG = "PlaybackSpeakerCase";
+    public static final String TAG = "PlaybackHeadsetCase";
     public static final boolean DEBUG = true;
 
     public class AudioConditionMixerControl extends Condition {
