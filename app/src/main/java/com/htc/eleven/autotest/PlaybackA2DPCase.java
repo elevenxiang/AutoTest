@@ -8,7 +8,7 @@ import java.util.Vector;
  * Created by eleven on 17-9-19.
  */
 
-public class PlaybackSpeakerCase extends PlaybackCase {
+public class PlaybackA2DPCase extends PlaybackCase {
 
     public static final String TAG = "PlaybackSpeakerCase";
     public static final boolean DEBUG = true;
@@ -32,7 +32,7 @@ public class PlaybackSpeakerCase extends PlaybackCase {
         }
     }
 
-    public PlaybackSpeakerCase(int categoryId, String caseName){
+    public PlaybackA2DPCase(int categoryId, String caseName){
 
         this.CategoryId = categoryId;
         this.mCaseName = caseName;

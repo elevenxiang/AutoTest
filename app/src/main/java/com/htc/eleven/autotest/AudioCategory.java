@@ -44,10 +44,10 @@ public class AudioCategory extends Category {
                 audioCase = new PlaybackSpeakerCase(categoryID, name);
                 break;
             case PLAYBACK_HEADSET:
-                audioCase = new PlaybackSpeakerCase(categoryID, name);
+                audioCase = new PlaybackHeadsetCase(categoryID, name);
                 break;
             case PLAYBACK_A2DP:
-                audioCase = new PlaybackSpeakerCase(categoryID, name);
+                audioCase = new PlaybackA2DPCase(categoryID, name);
                 break;
         }
 
