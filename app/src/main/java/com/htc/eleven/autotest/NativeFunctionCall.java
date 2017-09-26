@@ -11,7 +11,7 @@ public class NativeFunctionCall {
      */
 
     static {
-        System.loadLibrary("libautotestjni");
+        System.loadLibrary("autotestjni");
     }
 
     public NativeFunctionCall(){
