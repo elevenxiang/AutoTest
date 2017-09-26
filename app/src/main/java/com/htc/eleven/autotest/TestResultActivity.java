@@ -50,9 +50,11 @@ public class TestResultActivity extends AppCompatActivity {
                         Log.i(TAG, "get message from category: " + categoryId + ". " +category);
 
                     view_output.setText("");
+                    App.getApp().getCacheTextResult().append("");
                     SpannableStringBuilder builder = new SpannableStringBuilder(category);
                     builder.setSpan(new ForegroundColorSpan(getColor(R.color.colorAccent)), 0, category.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     view_output.append(builder+lineBreak);
+                    App.getApp().getCacheTextResult().append(builder+lineBreak);
                     curCategoryIdUnderTest = categoryId;
                 }
                     break;
@@ -70,10 +72,14 @@ public class TestResultActivity extends AppCompatActivity {
 
                     if(ret.equals("Passed")) {
                         view_output.append("      [" + ret + "] " + "=====");
+                        App.getApp().getCacheTextResult().append("      [" + ret + "] " + "=====");
                         view_output.append("  "+ caseName + lineBreak);
+                        App.getApp().getCacheTextResult().append("  "+ caseName + lineBreak);
                     } else {
                         view_output.append("      [" + ret + "] " + "=====");
+                        App.getApp().getCacheTextResult().append("      [" + ret + "] " + "=====");
                         view_output.append("  "+ caseName + ", Err =" + caseDesc + lineBreak);
+                        App.getApp().getCacheTextResult().append("  "+ caseName + ", Err =" + caseDesc + lineBreak);
                         view_output.setTextColor(getResources().getColor(R.color.colorAccent,null));
                     }
                 }
@@ -104,12 +110,6 @@ public class TestResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_result_acitivy);
 
         view_output = (TextView) findViewById(R.id.text_output);
-        if(App.getApp().init_check()) {
-            App.getApp().registerServiceNotifier(myHandler);
-        } else {
-            Toast.makeText(TestResultActivity.this, "目前发现绑定服务还没有成功!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
 
         findViewById(R.id.stopTest).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,9 +123,19 @@ public class TestResultActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
-        String [] data = intent.getStringArrayExtra(MessageID.FUNCTION_ID_DATA);
-        new xmlThread(myHandler, data).start();
+
+        if (!App.getApp().UIActived) {
+            if(App.getApp().init_check()) {
+                App.getApp().registerServiceNotifier(myHandler);
+            } else {
+                Toast.makeText(TestResultActivity.this, "目前发现绑定服务还没有成功!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            Intent intent = getIntent();
+            String [] data = intent.getStringArrayExtra(MessageID.FUNCTION_ID_DATA);
+            new xmlThread(myHandler, data).start();
+            App.getApp().UIActived = true;
+        }
     }
 
     public class xmlThread extends Thread  {

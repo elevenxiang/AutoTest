@@ -29,10 +29,20 @@ public class App extends Application {
 
     private boolean initialized = false;
 
+    private StringBuilder cacheTextResult;
+    public boolean UIActived = false;
+
     public boolean init_check() {
         return initialized;
     }
 
+    public NativeFunctionCall getNativeAPI() {
+        return nativeAPI;
+    }
+
+    public StringBuilder getCacheTextResult() {
+        return cacheTextResult;
+    }
 
     public class CaseLoopConnection implements ServiceConnection{
 
@@ -99,14 +109,11 @@ public class App extends Application {
         Log.i(TAG, "App Created !");
 
         mApp = (App) getApplicationContext();
-
         nativeAPI = new NativeFunctionCall();
+
+        cacheTextResult = new StringBuilder();
         init();
 
-    }
-
-    public NativeFunctionCall getNativeAPI() {
-        return nativeAPI;
     }
 
     public void init() {

@@ -23,7 +23,7 @@ public class PlaybackSpeakerCase extends PlaybackCase {
     @Override
     public boolean initConditions(String[] conditions) {
         for(int i=0; i<conditions.length; i++) {
-            String[] strings = conditions[0].split("=");
+            String[] strings = conditions[i].split("=");
             for (int j=0; j<strings.length; j++) {
                 switch (strings[0]) {
                     case "mixer_control":
