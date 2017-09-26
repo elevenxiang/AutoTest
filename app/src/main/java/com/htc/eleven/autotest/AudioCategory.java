@@ -18,6 +18,11 @@ public class AudioCategory extends Category {
     private static final String PLAYBACK_HEADSET = "playback_headset";
     private static final String PLAYBACK_A2DP = "playback_a2dp";
 
+    private static final String VOICE_CALL_EARPIECE = "voice_call_earpiece";
+    private static final String VOICE_CALL_SPEAKER = "voice_call_speaker";
+    private static final String VOICE_CALL_HEADSET = "voice_call_headset";
+    private static final String VOICE_CALL_BLUETOOTH = "voice_call_bluetooth";
+
     public AudioCategory(int id, String name, String file) {
         this.id = id;
         this.mCategoryName = name;
@@ -48,6 +53,18 @@ public class AudioCategory extends Category {
                 break;
             case PLAYBACK_A2DP:
                 audioCase = new PlaybackA2DPCase(categoryID, name);
+                break;
+            case VOICE_CALL_EARPIECE:
+                audioCase = new VoiceCallCase(categoryID, name, VoiceCallCase.CALL_HANDSET);
+                break;
+            case VOICE_CALL_SPEAKER:
+                audioCase = new VoiceCallCase(categoryID, name, VoiceCallCase.CALL_SPEAKER);
+                break;
+            case VOICE_CALL_HEADSET:
+                audioCase = new VoiceCallCase(categoryID, name, VoiceCallCase.CALL_HEADSET);
+                break;
+            case VOICE_CALL_BLUETOOTH:
+                audioCase = new VoiceCallCase(categoryID, name, VoiceCallCase.CALL_BLUETOOTH);
                 break;
         }
 

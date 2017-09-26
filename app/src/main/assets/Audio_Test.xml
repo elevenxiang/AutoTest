@@ -15,4 +15,20 @@
         <Conditions id="2">pcm_id=8</Conditions>
         <Result>Failed</Result>
     </Case>
+    <Case id="4" class="voice_call_earpiece" conNum="1">
+        <Conditions id="1">mode=2</Conditions>
+        <Result>Failed</Result>
+    </Case>
+    <Case id="5" class="voice_call_speaker" conNum="1">
+        <Conditions id="1">mode=2</Conditions>
+        <Result>Failed</Result>
+    </Case>
+    <Case id="6" class="voice_call_headset" conNum="1">
+        <Conditions id="1">mode=2</Conditions>
+        <Result>Failed</Result>
+    </Case>
+    <Case id="7" class="voice_call_bluetooth" conNum="1">
+        <Conditions id="1">mode=2</Conditions>
+        <Result>Failed</Result>
+    </Case>
 </Category>

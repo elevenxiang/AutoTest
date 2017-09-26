@@ -69,6 +69,8 @@
         android:id="@+id/startTestBtn"
         android:text="@string/go"
         android:textAllCaps="false"
+        android:gravity="bottom"
+
         app:layout_constraintTop_toBottomOf="@+id/item_checkbox_layout"
         tools:layout_editor_absoluteX="8dp" />
 

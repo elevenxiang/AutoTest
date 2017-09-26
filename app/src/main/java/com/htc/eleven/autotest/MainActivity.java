@@ -1,6 +1,7 @@
 package com.htc.eleven.autotest;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -33,11 +34,6 @@ public class MainActivity extends AppCompatActivity {
      * */
     private static final int mRequestCode = 1;
     private static final int mRequestSuccessfully = 0;
-
-//    // Used to load the 'native-lib' library on application startup.
-//    static {
-//        System.loadLibrary("native-lib");
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +96,4 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onRequestPermissionsResult Successfully !");
     }
 
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-//    public native String stringFromJNI();
 }

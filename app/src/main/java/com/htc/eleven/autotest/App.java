@@ -21,6 +21,7 @@ public class App extends Application {
 
     private static final String TAG = "AutoTest-App";
     private static App mApp;
+    private NativeFunctionCall nativeAPI;
 
     private Intent intentSrv = null;
     private CaseLoopConnection myConnection;
@@ -99,8 +100,13 @@ public class App extends Application {
 
         mApp = (App) getApplicationContext();
 
+        nativeAPI = new NativeFunctionCall();
         init();
 
+    }
+
+    public NativeFunctionCall getNativeAPI() {
+        return nativeAPI;
     }
 
     public void init() {
