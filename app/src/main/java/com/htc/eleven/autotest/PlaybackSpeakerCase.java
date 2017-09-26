@@ -27,10 +27,10 @@ public class PlaybackSpeakerCase extends PlaybackCase {
             for (int j=0; j<strings.length; j++) {
                 switch (strings[0]) {
                     case "mixer_control":
-                        mConditions.add(new AudioConditionMixerControl(null, i, strings[i]));
+                        mConditions.add(new AudioConditionMixerControl(null, i, strings[1]));
                         break;
                     case "pcm_id":
-                        mConditions.add(new AudioConditionPcmDevice(null, i, strings[i]));
+                        mConditions.add(new AudioConditionPcmDevice(null, i, strings[1]));
                         break;
                 }
             }
