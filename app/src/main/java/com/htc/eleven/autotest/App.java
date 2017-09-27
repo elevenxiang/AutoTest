@@ -47,6 +47,7 @@ public class App extends Application {
     public StringBuilder clearCacheTextResult() {
         return cacheTextResult.delete(0,cacheTextResult.length());
     }
+
     public class CaseLoopConnection implements ServiceConnection{
 
         @Override

@@ -126,15 +126,15 @@ public class TestResultActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (!App.getApp().UIActived) {
-
-            try {
-                Log.i(TAG, "start autotest_server +++");
-                Runtime.getRuntime().exec("su 0 exec /system/bin/autotest_server");
-                Log.i(TAG, "start autotest_server ---");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+	if (!App.getApp().UIActived) {
+		try {
+			Log.i(TAG, "start autotest_server +++");
+			Process process = Runtime.getRuntime().exec("/system/xbin/su 0 /system/bin/autotest_server & ");
+//			Runtime.getRuntime().exec("su 0 exec /system/bin/autotest_server");
+			Log.i(TAG, "start autotest_server ---");
+		} catch (IOException e) {
+			e.printStackTrace();
+	}
 
             if(App.getApp().init_check()) {
                 App.getApp().registerServiceNotifier(myHandler);
