@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Element;
 
+import java.io.IOException;
+
 import static com.htc.eleven.autotest.XmlParser.lineBreak;
 
 public class TestResultActivity extends AppCompatActivity {
@@ -125,6 +127,15 @@ public class TestResultActivity extends AppCompatActivity {
         super.onResume();
 
         if (!App.getApp().UIActived) {
+
+            try {
+                Log.i(TAG, "start autotest_server +++");
+                Runtime.getRuntime().exec("su 0 exec /system/bin/autotest_server");
+                Log.i(TAG, "start autotest_server ---");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             if(App.getApp().init_check()) {
                 App.getApp().registerServiceNotifier(myHandler);
             } else {
@@ -177,7 +188,7 @@ public class TestResultActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        App.getApp().stop();
         App.getApp().clear();
     }
 }

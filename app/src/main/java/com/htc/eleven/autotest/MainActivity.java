@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, TestResultActivity.class);
                 intent.putExtra(MessageID.FUNCTION_ID_DATA, functions);
 
+                App.getApp().UIActived = false;
+                App.getApp().clearCacheTextResult();
                 startActivity(intent);
             }
         });
